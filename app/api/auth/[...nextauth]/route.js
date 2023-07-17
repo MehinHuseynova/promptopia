@@ -13,9 +13,8 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }) {
-      // const sessionUser = await User.findOne({ email: session.user.email })
-      // session.user.id = sessionUser._id.toString()
-      console.log(session)
+      const sessionUser = await User.findOne({ email: session.user.email })
+      session.user.id = sessionUser._id.toString()
       return session
     },
     async signIn({ profile }) {
@@ -27,11 +26,6 @@ const handler = NextAuth({
         })
 
         if (!userExists) {
-          console.log(
-            'ds',
-            profile,
-            profile.name.replace(' ', '').toLowerCase(),
-          )
           await User.create({
             email: profile.email,
             username: profile.name.replace(' ', '').toLowerCase(),
@@ -40,7 +34,6 @@ const handler = NextAuth({
         }
         return true
       } catch (error) {
-        console.log('not successfull')
         console.log(error)
         return false
       }

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
 let isConnected = false //track the connection
-console.log('h')
 export const connectToDB = async () => {
   mongoose.set('strictQuery', true)
 
@@ -11,7 +10,6 @@ export const connectToDB = async () => {
   }
 
   try {
-    console.log('he')
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: 'share_prompt',
       useNewUrlParser: true,
@@ -20,7 +18,6 @@ export const connectToDB = async () => {
     isConnected = true
     console.log('Mongo DB connected')
   } catch (error) {
-    console.log('errr')
     console.log(error)
   }
 }
