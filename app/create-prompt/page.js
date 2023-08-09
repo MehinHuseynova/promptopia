@@ -13,7 +13,7 @@ const CreatePrompt = () => {
     prompt: '',
     tag: '',
   })
-  console.log({session},'refreshed')
+
   const createPrompt = async (e) => {
     e.preventDefault()
     setSubmitting(true)

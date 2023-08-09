@@ -1,6 +1,26 @@
 import Prompt from "@models/prompt"
 import { connectToDB } from "@utils/database"
 
+
+
+const GET = async (req, { params }) => {
+
+    try {
+        await connectToDB()
+        const prompt = await Prompt.findById(params.id)
+
+        if (!prompt) {
+            return new Response("NOT FOUND", { status: 404 })
+        }
+        return new Response(JSON.stringify(prompt), { status: 200 })
+    }
+
+    catch (error) {
+        console.log(error)
+        return new Response('Failed to fetch the response', { status: 500 })
+    }
+}
+
 const DELETE = async ({ params }) => {
 
     try {
@@ -35,4 +55,4 @@ const PATCH = async (req, { params }) => {
     }
 }
 
-export { DELETE, PATCH }
+export { GET, DELETE, PATCH }

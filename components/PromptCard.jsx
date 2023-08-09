@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
- import { useSession } from 'next-auth/react'
- import { usePathname, useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
- const PromptCard = ({
+const PromptCard = ({
   post,
   handleTagClick,
   handleEdit,
@@ -13,15 +13,16 @@ import Image from 'next/image'
 }) => {
 
   const [copied, setCopied] = useState()
-const {data:session} =useSession()
-const pathName=usePathname()
- const handleCopyPrompt=()=>{
-  setCopied(post.prompt)
-  navigator.clipboard.writeText(post.prompt)
-  setTimeout(()=>setCopied(''),3000)
- }
+  const { data: session } = useSession()
+  const pathName = usePathname()
 
- const isActionAllowed=(session?.user?.id===post.creator._id) && pathName==='/profile'
+  const handleCopyPrompt = () => {
+    setCopied(post.prompt)
+    navigator.clipboard.writeText(post.prompt)
+    setTimeout(() => setCopied(''), 3000)
+  }
+
+  const isActionAllowed = (session?.user?.id === post.creator._id) && pathName === '/profile'
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
