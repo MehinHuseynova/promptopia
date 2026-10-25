@@ -32,7 +32,9 @@ const Feed = () => {
     fetchPosts()
   }, [])
 
-  const handleSearchChange = (e) => {}
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value)
+  }
 
   return (
     <section className="feed">
