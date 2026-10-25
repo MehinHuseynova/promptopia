@@ -1,3 +1,4 @@
+
 import "../styles/global.css";
 import Nav from "@components/Nav";
 import Provider from "@components/Provider";
@@ -28,6 +29,7 @@ const RootLayout = ({ children }) => {
           </div>
           <main className="app">
             <Nav />
+            shshj
             {children}
           </main>
         </Provider>
