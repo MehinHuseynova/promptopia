@@ -16,7 +16,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
         className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
       >
         <label>
-          <span className="fant-satoshi font-semibold text-base text-gray-700">
+          <span className="fant-satoshi font-semibold text-base text-gray-700 dark:text-neutral-300">
             Your AI prompt
           </span>
           <textarea
@@ -28,7 +28,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           />
         </label>
         <label>
-          <span className="fant-satoshi font-semibold text-base text-gray-700">
+          <span className="fant-satoshi font-semibold text-base text-gray-700 dark:text-neutral-300">
             Tag
             <span className="font-normal">
               (#product, #webdevelopment, #idea)
@@ -43,7 +43,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           />
         </label>
         <div className="flex-end mx-3 mb-5 gap-4">
-          <Link href="/" className="text-gray-500 text-sm">
+          <Link href="/" className="text-gray-500 dark:text-neutral-400 text-sm">
             Cancel
           </Link>
           <button

@@ -1,23 +1,24 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useState, useEffect } from 'react'
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import ThemeToggle from "./ThemeToggle";
 
 const Nav = () => {
-  const { data: session } = useSession()
-  const [providers, setProviders] = useState(null)
-  const [toggleDropdown, setToggleDropdown] = useState(false)
+  const { data: session } = useSession();
+  const [providers, setProviders] = useState(null);
+  const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
     const setUpProviders = async () => {
-      const response = await getProviders()
-      setProviders(response)
-    }
-    setUpProviders()
-  }, [])
+      const response = await getProviders();
+      setProviders(response);
+    };
+    setUpProviders();
+  }, []);
   return (
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
@@ -31,23 +32,60 @@ const Nav = () => {
         <p className="logo_text"> Promptopia</p>
       </Link>
 
-      {/* Desktip Navigation */}
-      <div className="sm:flex hidden">
-        {session?.user ? (
-          <div className="flex gap-3 md:gap-5">
-            <Link href="/create-prompt" className="black_btn">
-              Create Post
-            </Link>
-            <button tyep="button" onClick={signOut} className="outline_btn">
-              Sign out
-            </button>
-            <Link href="/profile">
+      <div className="flex items-center gap-3 md:gap-5">
+        <ThemeToggle />
+
+        {/* Desktip Navigation */}
+        <div className="sm:flex hidden">
+          {session?.user ? (
+            <div className="flex gap-3 md:gap-5">
+              <Link href="/create-prompt" className="black_btn">
+                Create Post
+              </Link>
+              <button tyep="button" onClick={signOut} className="outline_btn">
+                Sign out
+              </button>
+              <Link href="/profile">
+                <Image
+                  src={session.user?.image}
+                  alt="profile"
+                  width={37}
+                  height={37}
+                  className="rounded-full"
+                />
+              </Link>
+            </div>
+          ) : (
+            <>
+              {providers &&
+                Object.values(providers).map((provider) => (
+                  <button
+                    type="button"
+                    key={provider.name}
+                    onClick={() => signIn(provider.id)}
+                    className="black-btn"
+                  >
+                    Sign In
+                  </button>
+                ))}
+            </>
+          )}
+        </div>
+        {/* Mobile Navigation */}
+
+        <div className="sm:hidden flex relative">
+          {session?.user ? (
+            <div className="flex">
               <Image
-                src={session.user?.image}
+                src={session?.user?.image}
                 alt="profile"
                 width={37}
                 height={37}
                 className="rounded-full"
+                onClick={() => {
+                  setToggleDropdown((prev) => !prev);
+                  console.log("clicked");
+                }}
               />
             </Link>
           </div>
@@ -128,6 +166,6 @@ const Nav = () => {
         )}
       </div>
     </nav>
-  )
-}
-export default Nav
+  );
+};
+export default Nav;
